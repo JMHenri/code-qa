@@ -11,7 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@octokit/types": "^13.5.0",
     "dotenv": "^16.4.5",
-    "octokit": "^3.2.1"
+    "octokit": "^3.2.1",
+    "simple-git": "^3.24.0"
   }
 }

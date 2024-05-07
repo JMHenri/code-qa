@@ -1,55 +1,34 @@
-require("dotenv").config({ path: "../.env" });
-const { Octokit } = require("@octokit/rest");
+require("dotenv").config();
+const simpleGit = require('simple-git');
 const fs = require("fs");
 const path = require("path");
 
 const accessToken = process.env.GITHUB_ACCESS_TOKEN;
-
-const octokit = new Octokit({
-  auth: accessToken,
-});
 
 // Repository details
 const owner = process.env.REPO_OWNER;
 const repo = process.env.REPO_NAME;
 const branch = process.env.REPO_BRANCH;
 
-// Local directory to store the downloaded repository
-const localDir = path.join(__dirname, "downloaded-repo");
+// Local directory to store the cloned repository
+const localDir = path.join(__dirname, "../downloaded-repo");
 
-async function downloadRepository() {
+async function cloneRepository() {
   try {
-    // Get the repository contents
-    const { data } = await octokit.repos.getContent({
-      owner,
-      repo,
-      ref: branch,
-    });
+    // Initialize a new SimpleGit instance
+    const git = simpleGit();
 
-    // Create the local directory if it doesn't exist
-    if (!fs.existsSync(localDir)) {
-      fs.mkdirSync(localDir, { recursive: true });
-    }
+    // Construct the repository URL with authentication
+    const repoUrl = `https://github.com/stitionai/devika`;
+    // const repoUrl = `https://${accessToken}@github.com/${owner}/${repo}.git`;
 
-    // Download each file in the repository
-    for (const item of data) {
-      if (item.type === "file") {
-        const filePath = path.join(localDir, item.path);
-        const fileContent = await octokit.repos.getContent({
-          owner,
-          repo,
-          path: item.path,
-          ref: branch,
-        });
-        fs.writeFileSync(filePath, Buffer.from(fileContent.data.content, "base64"));
-        console.log(`Downloaded: ${item.path}`);
-      }
-    }
+    // Clone the repository
+    await git.clone(repoUrl, localDir, ['--branch', branch, '--single-branch']);
 
-    console.log("Repository downloaded successfully!");
+    console.log("Repository cloned successfully!");
   } catch (error) {
-    console.error("Error downloading repository:", error);
+    console.error("Error cloning repository:", error);
   }
 }
 
-downloadRepository();
+cloneRepository();
