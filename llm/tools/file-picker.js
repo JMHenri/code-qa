@@ -3,7 +3,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 
 
 const filePickerSchema = z.object({
-  prompt: z.string().describe("The first number to operate on."),
+  prompt: z.string().describe("The user's question."),
 });
 const filePickerTool = new DynamicStructuredTool({
   name: "filePicker",
@@ -11,9 +11,7 @@ const filePickerTool = new DynamicStructuredTool({
   schema: filePickerSchema,
   func: async ({ userInput }) => {
     console.log(`The file picker received the input: ${operation}`);
-    return {
-      files: ["devika.py", "Makefile"],
-    };
+    return ["devika.py", "Makefile"];
   },
 });
   
