@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { DynamicStructuredTool } from "@langchain/core/tools";
-import { ChatOpenAI } from "@langchain/openai";
 
 
 const filePickerSchema = z.object({
@@ -11,15 +10,11 @@ const filePickerTool = new DynamicStructuredTool({
   description: "Can pick which files to use out of the downloaded repository.",
   schema: filePickerSchema,
   func: async ({ userInput }) => {
-    // Functions must return strings
     console.log(`The file picker received the input: ${operation}`);
+    return {
+      files: ["devika.py", "Makefile"],
+    };
   },
 });
-
-// function filePickerTool(input) {
-//     const result = input.toUpperCase();
-//     console.log(`The file picker received the input: ${input}`);
-//     return result;
-//   }
   
 export { filePickerTool };
