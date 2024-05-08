@@ -10,7 +10,7 @@ const filePickerTool = new DynamicStructuredTool({
   description: "Can pick which files to use out of the downloaded repository.",
   schema: filePickerSchema,
   func: async ({ userInput }) => {
-    console.log(`The file picker received the input: ${operation}`);
+    console.log(`The file picker received the input ${userInput}`);
     return ["devika.py", "Makefile"];
   },
 });
