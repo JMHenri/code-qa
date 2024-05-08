@@ -1,7 +1,7 @@
 import { ChatOpenAI } from "@langchain/openai";
 import { filePickerTool } from "./tools/file-picker.js";
 import OpenAI from "openai";
-import { PromptTemplate } from "langchain/prompts";
+import { PromptTemplate } from "@langchain/core/prompts";
 import corePlannerPrompt from "./prompts/core-planner.js";
 
 const model = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
@@ -11,7 +11,7 @@ const llm = new ChatOpenAI({
   temperature: 0
 });
 
-corePlannerTools = {
+const corePlannerTools = {
   "tool_calls": [
     {
       "id": "id_value",

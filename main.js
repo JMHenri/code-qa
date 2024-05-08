@@ -1,6 +1,6 @@
-require("dotenv").config();
+import 'dotenv/config';
 import { corePlanner } from "./llm/core-planner.js";
-const readline = require('readline');
+import readline from 'readline';
 
 async function main() {
   const rl = readline.createInterface({
