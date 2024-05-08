@@ -28,3 +28,5 @@ A sql database is easier to organize and has more history. An advanced LLM with 
 ## Move to Langserve.
 
 ## Put prompts into a more common format such as Jinja
+
+## Keyword matching using BERT.
