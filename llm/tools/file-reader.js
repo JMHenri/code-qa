@@ -10,8 +10,8 @@ const fileReaderTool = new DynamicStructuredTool({
   name: "fileReader",
   description: "Can pick which files to use out of the downloaded repository.",
   schema: fileReaderSchema,
-  func: async ({ userInput }) => {
-    console.log(`The file Reader received the input: ${operation}`);
+  func: async ({ userInput, filePickerResponses }) => {
+    console.log(`The file Reader received the inputs: ${userInput} and ${filePickerResponses}`);
     return ["the groq class is located in devika", "the groq class is not located in makefile"];
   },
 });

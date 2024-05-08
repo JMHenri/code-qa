@@ -2,6 +2,7 @@ import { ChatOpenAI } from "@langchain/openai";
 import corePlannerPrompt from "./prompts/core-planner.js";
 import { filePickerTool } from "./tools/file-picker.js";
 import { fileReaderTool } from "./tools/file-reader.js";
+import { summaryTool } from "./tools/summary.js";
 
 const llm = new ChatOpenAI({
   model: "gpt-4-turbo",
@@ -37,18 +38,10 @@ async function corePlanner(userInput) {
       const filePickerResponse = await filePickerTool.func({ userInput });
       filePickerResponses.push(filePickerResponse);
     } else if (toolCall === 'fileReader') {
-      if (filePickerResponses.length === 0) {
-        console.log('No file picker responses available for file reader.');
-        break;
-      }
-      const fileReaderResponse = await fileReaderTool.func(filePickerResponses[filePickerResponses.length - 1]);
+      const fileReaderResponse = await fileReaderTool.func({ userInput, filePickerResponses });
       fileReaderResponses.push(fileReaderResponse);
     } else if (toolCall === 'summarize') {
-      if (filePickerResponses.length === 0) {
-        console.log('No file picker responses available for end tool.');
-        break;
-      }
-      const fileReaderResponse = await fileReaderTool.func(filePickerResponses[filePickerResponses.length - 1]);
+      const summary = await summaryTool.func();
       endResponse = await endTool.func(fileReaderResponse);
     } else {
       console.log('Unknown function requested by the core planner.');
