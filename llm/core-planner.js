@@ -10,9 +10,9 @@ const llm = new ChatOpenAI({
 });
 
 
-const llmWithTools = llm.bindTools([filePickerTool]);
+const llmWithTools = llm.bindTools([filePickerTool, fileReaderTool, summaryTool]);
 
-async function corePlanner(userInput) {
+async function corePlanner(userQuestion) {
   let filePickerResponses = [];
   let fileReaderResponses = [];
   let summarizedResponse;
@@ -20,7 +20,7 @@ async function corePlanner(userInput) {
   // If this runs more than 5 times, it is very confused and should be debugged.
   for (let i = 0; i < 5; i++) {
     const prompt = corePlannerPrompt({
-      userInput,
+      userQuestion,
       filePickerResponses: filePickerResponses.length > 0 ? filePickerResponses : null,
       fileReaderResponses: fileReaderResponses.length > 0 ? fileReaderResponses : null,
     });

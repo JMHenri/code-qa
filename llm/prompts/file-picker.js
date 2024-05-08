@@ -10,7 +10,7 @@ Your task is to:
 1. Review the user's question.
 2. Analyze the list of files provided.
 3. Pick out the files that are relevant to the user's question.
-4. Return the relevant files in an array format.
+4. Return the relevant files in an array format in the provided function.
 
 --- User Input ---
 ${userQuestion || 'empty'}
@@ -19,9 +19,10 @@ ${userQuestion || 'empty'}
 ${fileArray ? JSON.stringify(fileArray) : '[]'}
 
 Instructions:
+- CALL THE PROVIDED FUNCTION.
 - If any of the files listed in the "Available Files" section are relevant to the user's question, include them in your response.
-- The file reader will be called with the files you specify.
-- Provide your response in a clean, organized array format.
+- Inlcude them as an array for the provided function.
+- Include no more than 5 files!
 `;
 
 export default filePickerPrompt;
