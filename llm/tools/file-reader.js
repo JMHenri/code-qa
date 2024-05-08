@@ -3,7 +3,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 import fs from "fs";
 import path from "path";
 import { ChatOpenAI } from "@langchain/openai";
-import fileReaderPrompt from "./prompts/file-reader-prompt.js";
+import fileReaderPrompt from "../prompts/file-reader.js";
 
 const fileReaderInternalSchema = z.object({
   userQuestion: z.string().describe("The user's question."),
