@@ -2,7 +2,6 @@ import { ChatOpenAI } from "@langchain/openai";
 import corePlannerPrompt from "./prompts/core-planner.js";
 import { filePickerTool } from "./tools/file-picker.js";
 import { fileReaderTool } from "./tools/file-reader.js";
-import OpenAI from "openai";
 
 const llm = new ChatOpenAI({
   model: "gpt-4-turbo",
@@ -15,7 +14,7 @@ const llmWithTools = llm.bindTools([filePickerTool]);
 async function corePlanner(userInput) {
   let filePickerResponses = [];
   let fileReaderResponses = [];
-  let endResponse;
+  let summarizedResponse;
 
   // If this runs more than 5 times, it is very confused and should be debugged.
   for (let i = 0; i < 5; i++) {
@@ -44,7 +43,7 @@ async function corePlanner(userInput) {
       }
       const fileReaderResponse = await fileReaderTool.func(filePickerResponses[filePickerResponses.length - 1]);
       fileReaderResponses.push(fileReaderResponse);
-    } else if (toolCall === 'end') {
+    } else if (toolCall === 'summarize') {
       if (filePickerResponses.length === 0) {
         console.log('No file picker responses available for end tool.');
         break;

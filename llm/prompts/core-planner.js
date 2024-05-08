@@ -14,7 +14,7 @@ If the both are empty, you should call the file-picker function with the user pr
     The file picker function parses through all of the github files and figures out which ones are useful to answer the user prompt.
 If the file-picker responses are not empty, and file-picker responses are empty, you should call the file-reader function with the list of files.
     The file reader function reads the contents of the files and summarizes them based on the user prompt.
-If the file-reader responses are not empty, you should ALWAYS RETURN AN ANSWER by calling the END function.
+If the file-reader responses are not empty, you should ALWAYS RETURN AN ANSWER by calling the summarize function.
 
 
 
