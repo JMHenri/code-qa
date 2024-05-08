@@ -15,7 +15,7 @@ const llmWithTools = llm.bindTools([filePickerTool, fileReaderTool, summaryTool]
 async function corePlanner(userQuestion) {
   let filePickerResponses = [];
   let fileReaderResponses = [];
-  let summarizedResponse;
+  let summary;
 
   // If this runs more than 5 times, it is very confused and should be debugged.
   for (let i = 0; i < 5; i++) {
@@ -41,16 +41,17 @@ async function corePlanner(userQuestion) {
     } else if (toolCall === 'fileReader') {
       const fileReaderResponse = await fileReaderTool.func({ userQuestion, fileNames: filePickerResponses });
       fileReaderResponses.push(...fileReaderResponse);
-    } else if (toolCall === 'summarize') {
-      const summary = await summaryTool.func();
-      endResponse = await endTool.func(fileReaderResponse);
+    } else if (toolCall === 'summary') {
+      const summaryForTool = response.tool_calls[0].args.summary;
+      summary = await summaryTool.func({summary: summaryForTool});
+      return summary;
     } else {
       console.log('Unknown function requested by the core planner.');
       break;
     }
   }
 
-  return endResponse
+  return "I'm sorry, I'm not sure how to answer that."
 }
 
 export { corePlanner };

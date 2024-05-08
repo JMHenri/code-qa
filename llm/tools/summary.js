@@ -3,7 +3,7 @@ import { DynamicStructuredTool } from "@langchain/core/tools";
 
 
 const summarizeSchema = z.object({
-  finalSummary: z.string().describe("The answer to the user's question."),
+  summary: z.string().describe("The answer to the user's question."),
 });
 const summaryTool = new DynamicStructuredTool({
   name: "summary",
