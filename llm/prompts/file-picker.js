@@ -1,4 +1,4 @@
-const filePickerPrompt = ({ userInput, fileArray }) => `
+const filePickerPrompt = ({ userQuestion, fileArray }) => `
 You are a module in a langchain system that is designed to help users answer questions about their codebase.
 Your role is to pick out a list of files that are relevant to the user's question.
 
@@ -13,7 +13,7 @@ Your task is to:
 4. Return the relevant files in an array format.
 
 --- User Input ---
-${userInput || 'empty'}
+${userQuestion || 'empty'}
 
 --- Available Files ---
 ${fileArray ? JSON.stringify(fileArray) : '[]'}

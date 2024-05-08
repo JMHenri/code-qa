@@ -35,7 +35,7 @@ const filePickerTool = new DynamicStructuredTool({
 
     getFilePaths(repoPath);
 
-    const prompt = filePickerPrompt({ userInput: userQuestion, fileArray });
+    const prompt = filePickerPrompt({ userQuestion, fileArray });
     console.log(`The file picker received the input ${userQuestion}`);
     console.log(`Available files: ${JSON.stringify(fileArray)}`);
 
