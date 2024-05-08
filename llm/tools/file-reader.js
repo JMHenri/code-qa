@@ -44,14 +44,12 @@ const fileReaderTool = new DynamicStructuredTool({
   description: "Can read the content of files from the downloaded repository.",
   schema: fileReaderExternalSchema,
   func: async ({ userQuestion, fileNames }) => {
-    const responses = [];
-
-    for (let i = 0; i < Math.min(fileNames.length, 5); i++) {
-      const fileName = fileNames[i];
+    const promises = fileNames.slice(0, 5).map(async (fileName) => {
       const response = await llmWithInternalTool.invoke({ userQuestion, fileName });
-      responses.push(response.trim());
-    }
+      return response.trim();
+    });
 
+    const responses = await Promise.all(promises);
     return responses.join("\n");
   },
 });
