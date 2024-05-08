@@ -20,7 +20,8 @@
     "dotenv": "^16.4.5",
     "langchain": "^0.1.36",
     "octokit": "^3.2.1",
-    "simple-git": "^3.24.0"
+    "simple-git": "^3.24.0",
+    "zod": "^3.23.7"
   },
   "overrides": {
     "@langchain/core": "^0.1.62"

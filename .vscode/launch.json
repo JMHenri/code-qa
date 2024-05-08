@@ -12,6 +12,15 @@
                 "<node_internals>/**"
             ],
             "program": "${workspaceFolder}/scripts/download-repo.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "debug main",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/debug.js"
         }
     ]
 }
