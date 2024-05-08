@@ -1,7 +1,6 @@
 import { z } from "zod";
 import { DynamicStructuredTool } from "@langchain/core/tools";
 import fs from "fs";
-import path from "path";
 import { ChatOpenAI } from "@langchain/openai";
 import fileReaderPrompt from "../prompts/file-reader.js";
 
@@ -31,10 +30,7 @@ const fileReaderTool = new DynamicStructuredTool({
   description: "Can read the content of files from the downloaded repository.",
   schema: fileReaderExternalSchema,
   func: async ({ userQuestion, fileNames }) => {
-    const repoPath = path.resolve("downloaded-repo");
-
-    const promises = fileNames.slice(0, 5).map(async (fileName) => {
-      const filePath = path.join(repoPath, fileName);
+    const promises = fileNames.slice(0, 5).map(async (filePath) => {
       try {
         const fileData = fs.readFileSync(filePath, "utf-8");
         const prompt = fileReaderPrompt({ userInput: userQuestion, fileData });
@@ -42,10 +38,10 @@ const fileReaderTool = new DynamicStructuredTool({
         console.log(`File data: ${fileData}`);
 
         const response = await llmWithInternalTool.invoke(prompt);
-        return response.tool_calls[0].args.response;
+        return [filePath, response.tool_calls[0].args.response];
       } catch (error) {
         console.error(`Error reading file ${filePath}:`, error);
-        return "Error reading file";
+        return [filePath, "Error reading file"];
       }
     });
 

@@ -23,6 +23,7 @@ Instructions:
 - If any of the files listed in the "Available Files" section are relevant to the user's question, include them in your response.
 - Inlcude them as an array for the provided function.
 - Include no more than 5 files!
+- Include at least 2 files!
 `;
 
 export default filePickerPrompt;

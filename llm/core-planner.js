@@ -37,10 +37,10 @@ async function corePlanner(userQuestion) {
     if (toolCall === 'filePicker') {
       const userQuestion = response.tool_calls[0].args.userQuestion;
       const filePickerResponse = await filePickerTool.func({ userQuestion });
-      filePickerResponses.push(filePickerResponse);
+      filePickerResponses.push(...filePickerResponse);
     } else if (toolCall === 'fileReader') {
       const fileReaderResponse = await fileReaderTool.func({ userQuestion, fileNames: filePickerResponses });
-      fileReaderResponses.push(fileReaderResponse);
+      fileReaderResponses.push(...fileReaderResponse);
     } else if (toolCall === 'summarize') {
       const summary = await summaryTool.func();
       endResponse = await endTool.func(fileReaderResponse);
