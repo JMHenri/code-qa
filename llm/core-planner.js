@@ -27,14 +27,8 @@ const corePlannerTools = {
 const llmWithTools = llm.bindTools([corePlannerTools]);
 
 async function corePlanner(userInput, filePickerResponses, fileReaderResponses) {
-  const prompt = new PromptTemplate({
-    template: corePlannerPrompt,
-    inputVariables: ['userInput'],
-  });
-
-  const formattedPrompt = await prompt.format({ userInput });
-
-  const response = await model.call(formattedPrompt);
+  const prompt = corePlannerPrompt({ userInput, filePickerResponses, fileReaderResponses });
+  const response = await llmWithTools.invoke(prompt);
 
   // Process the response and determine which function to call
   if (response.includes('file-picker')) {
@@ -45,5 +39,4 @@ async function corePlanner(userInput, filePickerResponses, fileReaderResponses) 
     console.log('Unknown function requested by the core planner.');
   }
 }
-
 export { corePlanner };
