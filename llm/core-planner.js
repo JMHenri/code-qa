@@ -35,10 +35,11 @@ async function corePlanner(userInput) {
     }
 
     if (toolCall === 'filePicker') {
-      const filePickerResponse = await filePickerTool.func({ userInput });
+      const userQuestion = response.tool_calls[0].args.userQuestion;
+      const filePickerResponse = await filePickerTool.func({ userQuestion });
       filePickerResponses.push(filePickerResponse);
     } else if (toolCall === 'fileReader') {
-      const fileReaderResponse = await fileReaderTool.func({ userInput, filePickerResponses });
+      const fileReaderResponse = await fileReaderTool.func({ userQuestion, filePickerResponses });
       fileReaderResponses.push(fileReaderResponse);
     } else if (toolCall === 'summarize') {
       const summary = await summaryTool.func();

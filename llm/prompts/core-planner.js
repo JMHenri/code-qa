@@ -20,9 +20,9 @@ If the file-reader responses are full, you should ALWAYS RETURN AN ANSWER by cal
 
 ---the user input is---
 ${userInput || 'empty'}
----the responses from filePicker are---
+---the responses from filePicker are (if any of these files are here, call the file reader! and pass these along)---
 ${filePickerResponses || 'empty'}
----the responses from fileReader are---
+---the responses from fileReader are (if any of these responses are here, call the SUMMARY tool and provide the final answer!)---
 ${fileReaderResponses || 'empty'}
 `;
 
