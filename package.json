@@ -5,16 +5,24 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "download-repo": "node scripts/download-repo.js"
+    "main": "node main.js",
+    "download-repo": "node scripts/download-repo.js",
+    "clean-repo": "node scripts/clean-repo-for-llm.js"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@langchain/openai": "^0.0.28",
     "@octokit/types": "^13.5.0",
     "degit": "^2.8.4",
     "dotenv": "^16.4.5",
+    "langchain": "^0.1.36",
     "octokit": "^3.2.1",
     "simple-git": "^3.24.0"
+  },
+  "overrides": {
+    "@langchain/core": "^0.1.62"
   }
 }
