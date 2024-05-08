@@ -9,13 +9,14 @@ That's it! You can call the following functions:
 - 'end': If you have responses from file-reader, you can call this function with the final answer to the user prompt.
 
 When you pick a function, it will run and then return with the data. You will then be called again and will have that data available.
-So, if you need the information from file picker filled out, call file picker.
-If you need the information from file reader filled out, call file reader.
-Then, when you have all the information you need, call 'end' with the final answer to the user prompt.
 
-Right now, the only right thing to do is to call 'file-picker' when it is empty,
-and then call 'file-reader' with the responses from 'file-picker'
-and then call 'end' with the responses from 'file-reader'.
+If the both are empty, you should call the file-picker function with the user prompt.
+    The file picker function parses through all of the github files and figures out which ones are useful to answer the user prompt.
+If the file-picker responses are not empty, and file-picker responses are empty, you should call the file-reader function with the list of files.
+    The file reader function reads the contents of the files and summarizes them based on the user prompt.
+If the file-reader responses are not empty, you should ALWAYS RETURN AN ANSWER by calling the END function.
+
+
 
 ---the user input is---
 ${userInput || 'empty'}
